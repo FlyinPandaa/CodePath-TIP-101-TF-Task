@@ -155,5 +155,3 @@ def quality_control(product_scores, threshold):
     return catProduct
     pass
 
-
-
