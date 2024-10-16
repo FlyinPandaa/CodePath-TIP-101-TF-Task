@@ -29,3 +29,19 @@ def reverse_list(lst):
 lst = [1, 2, 3, 4, 5]
 print(lst)
 print(reverse_list(lst))
+
+
+
+def is_prime(n):
+    # if i < 2 its not prime number
+    if n < 2:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+
+print(is_prime(5))
+print(is_prime(12))
+print(is_prime(9))
