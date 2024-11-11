@@ -310,7 +310,7 @@ class TreeSplitter:
       self.found = True
     return 1 + left_count + right_count
     
-def can_split_tree(root):
+def can_split(root):
   if not root:
     return False
 
@@ -325,15 +325,15 @@ root.left = TreeNode5(2)
 root.right = TreeNode5(3)
 root.left.left = TreeNode5(4)
 root.left.right = TreeNode5(5)
-print(can_split_tree(root))
+print(can_split(root))
 
 # Test Case 2: Non-splitable tree
 root = TreeNode5(1)
 root.left = TreeNode5(2)
 root.right = TreeNode5(3)
 root.left.left = TreeNode5(4)
-print(can_split_tree(root))
+print(can_split(root))
 
 # Test Case 3: Empty tree
 root = None
-print(can_split_tree(root))  
+print(can_split(root))  
