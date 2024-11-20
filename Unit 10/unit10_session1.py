@@ -33,6 +33,24 @@ def is_valid(s):
 
   return not stack
 
+# Another possible solution
+
+# def is_valid(s):
+#     stack = []  # Initialize the stack to keep track of opening brackets
+#     matching = {')': '(', '}': '{', ']': '['}  # Map of closing to opening brackets
+
+#     for char in s:
+#         if char in matching:  # If the character is a closing bracket
+#             # Pop the top of the stack if not empty, otherwise use a placeholder '#'
+#             top_element = stack.pop() if stack else '#'
+#             # Check if the top element matches the current closing bracket
+#             if matching[char] != top_element:
+#                 return False
+#         else:
+#             stack.append(char)  # Push opening brackets onto the stack
+
+#     return not stack  # The stack should be empty if all brackets are matched
+
 print(is_valid("()[]{}"))
 
 print(is_valid("([{}])"))
@@ -62,7 +80,6 @@ print(is_valid("({[)]}"))
 # Space Complexity: O(1) - Only using a constant amount of space
 
 def max_profit(prices):
-  
   min_price = float('inf')
   max_profit = 0
 
