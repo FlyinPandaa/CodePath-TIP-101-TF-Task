@@ -1,104 +1,77 @@
-# PROBLEM 1 [Version 1]
+# PROBLEM 1
 
 # 1. Share 2 questions you would ask to help understand the question:
-#    What if only one node in list?
-#    What if list is empty?
+#    Can the list be empty?
+#    Do we need a entire new function for this question?
 
 # 2. Write out in plain English what you want to do:
-#    Start at beginning and loop through list checking if the tail points back to the head.
+#    Access the node class and create the linked list.
 
 # 3. Translate each sub-problem into pseudocode:
-#    Check if list is empty
-#    Loop through list and return  true if tail node points to the head node
-#    Return false otherwise
+#    class(values(class2(values(class3(values)))
+
+# 4. Translate the pseudocode into Python and share your final answer:
+
+# Time Complexity: O(1)
+# Space Complexity: O(1)
+
+class Node1:
+  def __init__(self, value, next=None):
+    self.value = value
+    self.next = next
+
+Node1(4, Node1(3, Node1(2)))
+
+# PROBLEM 2
+
+# 1. Share 2 questions you would ask to help understand the question:
+#    What happens if the list is empty?
+#    Would it be possible to solve the problem in O(1) time?
+
+# 2. Write out in plain English what you want to do:
+#    Loop through linked list, compare each value to the target, increment counter if they  match.
+
+# 3. Translate each sub-problem into pseudocode:
+#    count = 0
+#    loop through linked list:
+#    if match target then increment count
+#    return count
 
 # 4. Translate the pseudocode into Python and share your final answer:
 
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 
-def is_circular(head):
-  if not head:
-      return False
+class Node2:
+  def __init__(self, value, next=None):
+    self.value = value
+    self.next = next
 
-  current = head
-  while current.next:
-      current = current.next
-      if current.next == head:
-          return True 
+def count_element(val, lst):
+  count = 0
+  
+  for current in lst:
+    if current == val:
+      count += 1
+      
+  return count
 
-  return False
+print(count_element(3, [1, 2, 3, 4, 3, 5]))
 
-# PROBLEM 2 [Version 1]
+# PROBLEM 3
 
 # 1. Share 2 questions you would ask to help understand the question:
-#    What if list is empty?
-#    What if list doesn't cycle?
+#    Can the input linked list be empty?
+#    Should we print out the new linked list?
 
 # 2. Write out in plain English what you want to do:
-#    Utilize Floyd's cycle detecting. Locate last node in cycle
+#    Print statements to track state of linked list. Go through list and remove the last node.
 
 # 3. Translate each sub-problem into pseudocode:
-#    Check if list is empty
-#    Create two pointers
-#    Use Floyd's cycle detection
-#    If no cycle return none
-#    Find start of cycle
-#    Then find the last node in the cycle
-#    return last node
-
-# 4. Translate the pseudocode into Python and share your final answer:
-
-# Time Complexity: O(n)
-# Space Complexity: O(n)
-
-def find_last_node_in_cycle(head):
-  if not head or not head.next:
-      return None
-
-  slow = fast = head
-  has_cycle = False
-
-  while fast and fast.next:
-      slow = slow.next
-      fast = fast.next.next
-      if slow == fast:
-          has_cycle = True
-          break
-        
-  if not has_cycle:
-      return None
-    
-  slow = head
-  
-  while slow != fast:
-      slow = slow.next
-      fast = fast.next
-
-  cycle_start = slow
-  last_node = cycle_start
-  
-  while last_node.next != cycle_start:
-      last_node = last_node.next
-
-  return last_node
-
-# PROBLEM 3 [Version 1]
-
-# 1. Share 2 questions you would ask to help understand the question:
-#    What if list is empty?
-#    What if two values are equal?
-
-# 2. Write out in plain English what you want to do:
-#    Create two lists for lesser than and greater than values.
-
-# 3. Translate each sub-problem into pseudocode:
-#    Create two linked lists
-#    create pointers
-#    Loop through original list separating the values
-#    Stop the greater than list
-#    attach less than list
-#    return list
+#    Check if linked list is empty
+#    Check if the linked list has only one item
+#    Loop through linked  list and  remove the last node
+#    print out the output
 
 # 4. Translate the pseudocode into Python and share your final answer:
 
@@ -110,121 +83,118 @@ class Node3:
       self.value = value
       self.next = next
 
-def partition(head, val):
-  less_head = Node3(0)
-  greater_head = Node3(0)
+def remove_tail(head):
+    if head is None:
+        print("List is empty. No tail to remove.")
+        return None
+    if head.next is None:
+        print("Only one node in the list. Removing the node.")
+        return None
 
-  less = less_head
-  greater = greater_head
-
-  current = head
+    current = head
+    
+    while current.next.next:
+        print(f"Current Node: {current.value} -> Next Node: {current.next.value}")
+        current = current.next
+        
+    print(f"Removing tail node with value: {current.next.value}")
+    current.next = None
   
-  while current:
-      if current.val < val:
-          less.next = current
-          less = less.next
-      else:
-          greater.next = current
-          greater = greater.next
+    current = head
+    while current:
+        print(current.value, end=" ")
+        current = current.next
+    print()
+  
+    return head
 
-      current = current.next
+head = Node3(1, Node3(2, Node3(3, Node3(4))))
 
-  greater.next = None
+print(remove_tail(head))
 
-  less.next = greater_head.next
-
-  return less_head.next
-
-# PROBLEM 4 [Version 1]
+# PROBLEM 4
 
 # 1. Share 2 questions you would ask to help understand the question:
-#    What if list is empty?
-#    What does "the most signiicant bit is at the head of linked list" mean?
+#    What if linked list is empty?
+#    What if there is an even number of nodes?
 
 # 2. Write out in plain English what you want to do:
-#    Loop through list while building the binary number.
+#    With two pointers, have one move at half of the speed as the other pointer. Find middle.
 
 # 3. Translate each sub-problem into pseudocode:
-#    set a variable
-#    traverse the list creating the binary number
-#    return variable
+#    create slow and fast pointer
+#    loop through the linked list with the pointers, one moving faster.
+#    return the slow pointer
 
 # 4. Translate the pseudocode into Python and share your final answer:
 
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 
-class Node:
-  def __init__(self, value, next=None):
+class Node4:
+  def __init__(self, value=None, next=None):
       self.value = value
       self.next = next
 
-def binary_to_int(head):
-  num = 0
-  current = head
-  while current:
-      num = num * 2 + current.value
-      current = current.next
-  return num
+def find_middle_element(head):
+  slow = fast = head
+  while fast and fast.next:
+      slow = slow.next
+      fast = fast.next.next
+  return slow.value
+  
+head = Node4(1, Node4(2, Node4(3, Node4(4))))
 
-num1 = 1
-num2 = 0
-num3 = 1
+print(find_middle_element(head))
 
-int_num = binary_to_int(num1)
-# 101 in binary 
-
-print(int_num)
-
-# PROBLEM 5 [Version 1]
+# PROBLEM 5
 
 # 1. Share 2 questions you would ask to help understand the question:
-#    What if linked list is empty?
-#    What if one linked list is larger than the other?
+#    What if multiple data types?
+#    What if the linked list is empty?
 
 # 2. Write out in plain English what you want to do:
-#    Loop through both linked list add up digits along the way. Form new linked list
+#    Use two pointer to find the middle of list, and then reverse the second half.
 
 # 3. Translate each sub-problem into pseudocode:
-#    Create temp node
-#    set current to temp node
-#    set a variable to keep track
-#    loop through both list, add values that have a carry
-#    store the carry values inside the result list
-#    Handle any remaining nodes that are part of a longer list
+#    Check if there is only one item in list or no item
+#    loop through list with pointer
+#    reverse list
 
 # 4. Translate the pseudocode into Python and share your final answer:
 
-# Time Complexity: O(max(n,m)) - dependent on longest linked list
-# Space Complexity: O(max(n,m)) -  dependent on length of longest linked list
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 
 class Node5:
-  def __init__(self, value, next=None):
+  def __init__(self, value=None, next=None):
       self.value = value
       self.next = next
 
-def add_two_numbers(head_a, head_b):
-  temp_head = Node5(4)
-  current = temp_head
-  carry = 0
+def is_palindrome(head):
+  if head is None or head.next is None:
+      return True
 
-  a_curr = head_a
-  b_curr = head_b
+  slow = fast = head
   
-  while a_curr or b_curr or carry:
-      val_a = a_curr.value if a_curr else 0
-      val_b = b_curr.value if b_curr else 0
+  while fast and fast.next:
+      slow = slow.next
+      fast = fast.next.next
 
-      sum_val = val_a + val_b + carry
-      carry = sum_val // 10
-      sum_val = sum_val % 10
+  prev = None
+  
+  while slow:
+      next_node = slow.next
+      slow.next = prev
+      prev = slow
+      slow = next_node
 
-      current.next = Node5(sum_val)
-      current = current.next
-    
-      if a_curr:
-          a_curr = a_curr.next
-      if b_curr:
-          b_curr = b_curr.next
+  left, right = head, prev
+  
+  while right:  
+      if left.value != right.value:
+          return False
+      left = left.next
+      right = right.next
 
-  return temp_head.next
+  return True
