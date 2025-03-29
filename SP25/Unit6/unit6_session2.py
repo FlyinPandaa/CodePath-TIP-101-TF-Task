@@ -52,36 +52,108 @@ def is_circular(head):
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 
+# Node class declaration
+class Node2:
+    def __init__(self, value=None, next=None):
+        self.value = value
+        self.next = next
+
 def find_last_node_in_cycle(head):
-  if not head or not head.next:
-      return None
+    # If the list is empty or has only one node, it can't have a cycle
+    if not head or not head.next:
+        return None
 
-  slow = fast = head
-  has_cycle = False
+    # Initialize two pointers to detect a cycle (Floyd's algorithm)
+    slow = fast = head
+    has_cycle = False  # Flag to indicate whether a cycle exists
 
-  while fast and fast.next:
-      slow = slow.next
-      fast = fast.next.next
-      if slow == fast:
-          has_cycle = True
-          break
+    # Move slow by 1 step and fast by 2 steps
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+        # If slow and fast meet, a cycle is detected
+        if slow == fast:
+            has_cycle = True
+            break  # Exit the loop early since we've found the cycle
+
+    # If no cycle is found, return None
+    if not has_cycle:
+        return None
+
+    # Reset slow to the head to find the starting point of the cycle
+    slow = head
+
+    # Move slow and fast one step at a time
+    # When they meet again, it's the start of the cycle
+    while slow != fast:
+        slow = slow.next
+        fast = fast.next
+
+    # Store the start of the cycle
+    cycle_start = slow
+
+    # Traverse the cycle to find the last node in the cycle
+    last_node = cycle_start
+    while last_node.next != cycle_start:
+        last_node = last_node.next
+
+    # Return the last node whose next points back to the start of the cycle
+    return last_node
+
+# Printing the result
+def print_last_node_in_cycle(head):
+    result = find_last_node_in_cycle(head)
+    if result:
+        print(f"Last node in cycle has value: {result.value}")
+    else:
+        print("No cycle found.")
         
-  if not has_cycle:
-      return None
-    
-  slow = head
-  
-  while slow != fast:
-      slow = slow.next
-      fast = fast.next
+# Examples/Output:         
+        
+# 1 → 2 → 3 → 4 → 5
+#           ↑     ↓
+#           ←←←←←← 
 
-  cycle_start = slow
-  last_node = cycle_start
-  
-  while last_node.next != cycle_start:
-      last_node = last_node.next
+n1 = Node2(1)
+n2 = Node2(2)
+n3 = Node2(3)
+n4 = Node2(4)
+n5 = Node2(5)
 
-  return last_node
+n1.next = n2
+n2.next = n3
+n3.next = n4
+n4.next = n5
+n5.next = n3
+
+print_last_node_in_cycle(n1)
+# Output: Last node in cycle has value: 5
+
+# -----------------------------------------------------------------
+
+# 10 → 20 → 30 → None
+
+x = Node2(10)
+y = Node2(20)
+z = Node2(30)
+
+x.next = y
+y.next = z
+
+print_last_node_in_cycle(x)
+# Output: No cycle found.
+
+# -----------------------------------------------------------------
+
+# 1 → (back to self)
+
+solo = Node2(1)
+solo.next = solo
+
+print_last_node_in_cycle(solo)
+# Output: Last node in cycle has value: 1
+
 
 # PROBLEM 3 [Version 1]
 
