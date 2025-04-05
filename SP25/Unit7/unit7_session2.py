@@ -52,22 +52,29 @@ print(is_nested(paren_s))
 # Space complexity: O(1)
 
 def count_ones(lst):
+  # Initialize two pointers (left and right)
   low, high = 0, len(lst) - 1
   
+  # Loop through 'lst' while we are within range of the 'lst'
   while low <= high:
+      # Calculate the midpoint
       mid = (low + high) // 2
-    
+      
+      # If middle element is 0, that must mean 1s are to the right, Shift low to the start of 1s
       if lst[mid] == 0:
           low = mid + 1
+      # Keep looking left o find the first occurrence of 1, move 'high' to left
       else:
           high = mid - 1
-
+  # End of the while loop, we have low set to the first occurrence of 1s 
   if low < len(lst) and lst[low] == 1:
+      # Number of 1s in the  'lst' is total length os the lst - low (index of the first occurrence of 1s)
       return len(lst) - low
-    
+  
+  # Return 0 if no 1s are found
   return 0
-  pass
 
+# Example:
 lst = [0, 0, 0, 0, 1, 1, 1]
 print(count_ones(lst))
 
