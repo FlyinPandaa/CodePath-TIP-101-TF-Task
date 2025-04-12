@@ -78,14 +78,19 @@ class TreeNode2():
        self.right = right
 
 def height(root):
-  if root is None:
-    return 0
+    # Base case: If the node is None (empty tree or leaf's child), height is 0
+    if root is None:
+        return 0
 
-  left_h = height(root.left)
-  right_h = height(root.right)
+    # Recursively calculate height of left subtree
+    left_h = height(root.left)
 
-  return max(left_h, right_h) + 1
-pass
+    # Recursively calculae height of right subtree
+    right_h = height(root.right)
+
+    # The height of the current node is 1 (because of the root) + max of left/right subtree heights
+    return max(left_h, right_h) + 1
+
 
 root = TreeNode2(4)
 root.left = TreeNode2(2)

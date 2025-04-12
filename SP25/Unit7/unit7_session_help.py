@@ -46,4 +46,3 @@ print(letter_case_permutation("a1B2"))
 
 print(letter_case_permutation(""))
 # Expected: ['']  # One empy string
-
