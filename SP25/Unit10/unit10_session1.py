@@ -79,22 +79,44 @@ print(is_valid("({[)]}"))
 # Time Complexity: O(n) - Looping through a list of integers
 # Space Complexity: O(1) - Only using a constant amount of space
 
+# def max_profit(prices):
+#   min_price = float('inf')
+#   max_profit = 0
+
+#   for price in prices:
+#       min_price = min(min_price, price)
+#       current_profit = price - min_price
+#       max_profit = max(max_profit, current_profit)
+
+#   return max_profit
+
 def max_profit(prices):
-  min_price = float('inf')
-  max_profit = 0
+    # Start with a high min price and 0 profit
+    min_price = float('inf')
+    max_profit = 0
 
-  for price in prices:
-      min_price = min(min_price, price)
-      current_profit = price - min_price
-      max_profit = max(max_profit, current_profit)
+    # Loop through each day's price
+    for price in prices:
+        
+        # Check if there is a lower price to buy
+        if price < min_price:
+            min_price = price  
+        else:
+            # Profit if sold today
+            profit = price - min_price 
+            
+            # Keep the highest profit 
+            max_profit = max(max_profit, profit)  
+            
+    # Return max profit
+    return max_profit
 
-  return max_profit
 
-print(max_profit([7,1,5,3,6,4]))
+print(max_profit([7,1,5,3,6,4])) #Output: 5
 
-print(max_profit([7,6,4,3,1]))
+print(max_profit([7,6,4,3,1])) #Output: 0
 
-print(max_profit([1,2,3,4,5]))
+print(max_profit([1,2,3,4,5])) #Output: 4
 
 # PROBLEM 3 [Version 1]
 
